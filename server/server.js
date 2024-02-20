@@ -1,16 +1,20 @@
 const mongoose = require("mongoose")
 const Document = require("./Document")
 
-mongoose.connect("mongodb://localhost:27017/google-docs-clone", {
+mongoose.connect("mongodb://mongo:27017/google-docs-clone", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false,
   useCreateIndex: true,
+}).then(() => {
+  console.log("Connected to MongoDB")
+}).catch((err) => {
+  console.log("Error: ", err)
 })
 
-const io = require("socket.io")(3001, {
+const io = require("socket.io")(8000, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "http://0.0.0.0:3000",
     methods: ["GET", "POST"],
   },
 })
